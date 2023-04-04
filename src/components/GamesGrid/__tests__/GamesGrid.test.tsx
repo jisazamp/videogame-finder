@@ -1,21 +1,22 @@
 import { describe, test, expect, vi, Mock } from 'vitest'
 import { render, screen, act } from '@testing-library/react'
-import { GamesGrid, Game } from '../GamesGrid'
-import { apiClient } from '@services/index'
+import { useGames } from '@hooks/index'
+import { GamesGrid } from '../GamesGrid'
 
-vi.mock('@services/index', async () => {
-  const mod = await vi.importActual('@services/index')
+vi.mock('@hooks/index', async () => {
+  const mod = await vi.importActual('@hooks/index')
   return {
     ...(mod as Record<string, unknown>),
-    apiClient: {
-      get: vi.fn(),
-    },
+    useGames: vi.fn(),
   }
 })
 
 describe('<GamesGrid />', () => {
   test('should show a message when there is an error', async () => {
-    ;(apiClient.get as Mock).mockRejectedValueOnce(new Error('Error'))
+    ;(useGames as Mock).mockReturnValueOnce({
+      games: [],
+      error: 'Error',
+    })
 
     await act(async () => {
       render(<GamesGrid />)
@@ -26,21 +27,12 @@ describe('<GamesGrid />', () => {
   })
 
   test('should show a list of games', async () => {
-    const games: Game[] = [
-      {
-        id: 1,
-        name: 'Game 1',
-      },
-      {
-        id: 2,
-        name: 'Game 2',
-      },
-    ]
-
-    ;(apiClient.get as Mock).mockResolvedValueOnce({
-      data: {
-        results: games,
-      },
+    ;(useGames as Mock).mockReturnValueOnce({
+      games: [
+        { id: 1, name: 'Game 1' },
+        { id: 2, name: 'Game 2' },
+      ],
+      error: null,
     })
 
     await act(async () => {
