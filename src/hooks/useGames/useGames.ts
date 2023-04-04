@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import { apiClient, Game } from '@services/index'
+import { useQuery } from 'react-query'
 
 interface FetchGamesResponse {
   count: number
@@ -7,19 +7,16 @@ interface FetchGamesResponse {
 }
 
 export const useGames = () => {
-  const [games, setGames] = useState<Game[]>([])
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    const controller = new AbortController()
-
-    apiClient
+  const {
+    data: games,
+    error,
+    isError,
+    isLoading,
+  } = useQuery<Game[], Error>('games', async () => {
+    return apiClient
       .get<FetchGamesResponse>('/games')
-      .then((response) => setGames(response.data.results))
-      .catch((error) => setError(error.message))
+      .then((response) => response.data.results)
+  })
 
-    return () => controller.abort()
-  }, [])
-
-  return { games, error }
+  return { games, error, isLoading, isError }
 }

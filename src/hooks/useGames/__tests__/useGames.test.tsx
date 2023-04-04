@@ -1,7 +1,16 @@
 import { describe, expect, test, vi, Mock } from 'vitest'
-import { renderHook, act } from '@testing-library/react'
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { apiClient } from '@services/index'
+import { renderHook, act } from '@testing-library/react'
 import { useGames } from '../useGames'
+
+vi.mock('react-query', async () => {
+  const mod = await vi.importActual('react-query')
+  return {
+    ...(mod as Record<string, unknown>),
+    useQuery: vi.fn(),
+  }
+})
 
 vi.mock('@services/index', async () => {
   const mod = await vi.importActual('@services/index')
@@ -13,31 +22,49 @@ vi.mock('@services/index', async () => {
   }
 })
 
+const queryClient = new QueryClient()
+
 describe('useGames', () => {
   test('should return games', async () => {
-    ;(apiClient.get as Mock).mockResolvedValueOnce({
-      data: {
-        results: [
-          {
-            id: 1,
-            name: 'Game 1',
-          },
-          {
-            id: 2,
-            name: 'Game 2',
-          },
-        ],
-      },
+    ;(useQuery as Mock).mockReturnValueOnce({
+      data: [
+        { id: 1, name: 'Game 1' },
+        { id: 2, name: 'Game 2' },
+      ],
+      isLoading: false,
+      error: null,
     })
 
-    const { result } = await act(async () => renderHook(() => useGames()))
+    const { result } = await act(async () =>
+      renderHook(() => useGames(), {
+        wrapper: ({ children }) => (
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+        ),
+      })
+    )
+
     expect(result.current.games).toHaveLength(2)
   })
 
   test('should return an error', async () => {
-    ;(apiClient.get as Mock).mockRejectedValueOnce(new Error('Error'))
+    ;(useQuery as Mock).mockReturnValueOnce({
+      data: null,
+      isLoading: false,
+      error: new Error('Error'),
+    })
 
-    const { result } = await act(async () => renderHook(() => useGames()))
-    expect(result.current.error).toBe('Error')
+    const { result } = await act(async () =>
+      renderHook(() => useGames(), {
+        wrapper: ({ children }) => (
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+        ),
+      })
+    )
+
+    expect(result.current.error?.message).toBe('Error')
   })
 })

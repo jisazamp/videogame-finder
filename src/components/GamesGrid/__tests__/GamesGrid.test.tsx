@@ -15,14 +15,16 @@ describe('<GamesGrid />', () => {
   test('should show a message when there is an error', async () => {
     ;(useGames as Mock).mockReturnValueOnce({
       games: [],
-      error: 'Error',
+      error: { message: 'Error' },
+      isError: true,
+      isLoading: false,
     })
 
     await act(async () => {
       render(<GamesGrid />)
     })
 
-    const errorMessage = screen.getByTestId('error-message')
+    const errorMessage = screen.getByText('Error')
     expect(errorMessage).toBeTruthy()
   })
 
@@ -42,5 +44,20 @@ describe('<GamesGrid />', () => {
     const gamesList = await screen.findByTestId('games-list')
     expect(gamesList).toBeTruthy()
     expect(gamesList.children.length).toBe(2)
+  })
+
+  test('should show a loading message when loading', async () => {
+    ;(useGames as Mock).mockReturnValueOnce({
+      games: [],
+      error: null,
+      isLoading: true,
+    })
+
+    await act(async () => {
+      render(<GamesGrid />)
+    })
+
+    const loadingMessage = screen.getByText('Loading...')
+    expect(loadingMessage).toBeTruthy()
   })
 })
