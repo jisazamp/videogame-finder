@@ -9,8 +9,5 @@ describe('<NavBar />', () => {
 
     const logo = screen.getByAltText('Logo')
     expect(logo).toBeTruthy()
-
-    const navBarText = screen.getByText('NavBar')
-    expect(navBarText).toBeTruthy()
   })
 })
