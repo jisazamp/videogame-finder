@@ -1,1 +1,2 @@
-export * from './NavBar/NavBar';
+export * from './NavBar/NavBar'
+export * from './ColorModeSwitch/ColorModeSwitch'
