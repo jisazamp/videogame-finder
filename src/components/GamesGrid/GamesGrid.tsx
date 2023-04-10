@@ -1,21 +1,43 @@
-import { Container, SimpleGrid, Text } from '@chakra-ui/react'
+import {
+  Card,
+  CardBody,
+  Container,
+  SimpleGrid,
+  Skeleton,
+  SkeletonText,
+  Text,
+} from '@chakra-ui/react'
 import { GameCard } from '@components/index'
 import { useGames } from '@hooks/index'
 
 export const GamesGrid = () => {
   const { games, error, isError, isLoading } = useGames()
+  const skeletons = [1, 2, 3, 4, 5, 6]
 
   if (isLoading) {
     return (
-      <Container
-        alignItems='flex-start'
-        data-testid='loading-container'
-        display='flex'
-        height='100vh'
-        justifyContent='center'
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 2, xl: 3 }}
+        justifyItems='center'
+        spacing={10}
+        margin={2}
       >
-        <Text>Loading...</Text>
-      </Container>
+        {skeletons.map((skeleton) => (
+          <Card
+            borderRadius='lg'
+            data-testid='skeleton-card'
+            height='100%'
+            key={skeleton}
+            margin={2}
+            width='300px'
+          >
+            <Skeleton height='200px' />
+            <CardBody>
+              <SkeletonText />
+            </CardBody>
+          </Card>
+        ))}
+      </SimpleGrid>
     )
   }
 

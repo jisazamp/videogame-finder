@@ -1,6 +1,7 @@
 import { describe, test, expect, vi, Mock } from 'vitest'
 import { render, screen, act } from '@testing-library/react'
 import { useGames } from '@hooks/index'
+import { Skeleton, SkeletonText } from '@chakra-ui/react'
 import { GamesGrid } from '../GamesGrid'
 
 vi.mock('@hooks/index', async () => {
@@ -11,9 +12,18 @@ vi.mock('@hooks/index', async () => {
   }
 })
 
+vi.mock('@chakra-ui/react', async () => {
+  const mod = await vi.importActual('@chakra-ui/react')
+  return {
+    ...(mod as Record<string, unknown>),
+    Skeleton: vi.fn(),
+    SkeletonText: vi.fn(),
+  }
+})
+
 describe('<GamesGrid />', () => {
   test('should show a message when there is an error', async () => {
-    ;(useGames as Mock).mockReturnValueOnce({
+    ;(useGames as Mock).mockReturnValue({
       games: [],
       error: { message: 'Error' },
       isError: true,
@@ -58,18 +68,19 @@ describe('<GamesGrid />', () => {
     expect(gamesList.children.length).toBe(2)
   })
 
-  test('should show a loading message when loading', async () => {
-    ;(useGames as Mock).mockReturnValueOnce({
-      games: [],
-      error: null,
+  test('should show skeleton cards when loading', async () => {
+    ;(useGames as Mock).mockReturnValue({
       isLoading: true,
+      isError: false,
+      error: null,
+      games: [],
     })
 
     await act(async () => {
       render(<GamesGrid />)
     })
 
-    const loadingMessage = screen.getByText('Loading...')
-    expect(loadingMessage).toBeTruthy()
+    const skeletonCards = screen.getAllByTestId('skeleton-card')
+    expect(skeletonCards.length).toBe(6)
   })
 })

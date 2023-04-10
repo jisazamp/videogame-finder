@@ -1,4 +1,4 @@
-import { Card, CardBody, HStack, Heading, Image } from '@chakra-ui/react'
+import { Card, CardBody, HStack, Heading, Image, Text } from '@chakra-ui/react'
 import { PlatformIconList, CriticScore } from '@components/index'
 import { Game, getCroppedImageUrl } from '@services/index'
 
@@ -15,6 +15,7 @@ export const GameCard = ({ game }: Props) => {
       margin={2}
       maxW='sm'
       overflow='hidden'
+      width='300px'
       _hover={{
         boxShadow: 'xl',
         transition: 'all 0.3s ease-in-out',
