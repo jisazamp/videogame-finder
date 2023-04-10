@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1681103409367" clover="3.2.0">
-  <project timestamp="1681103409368" name="All files">
-    <metrics statements="248" coveredstatements="245" conditionals="28" coveredconditionals="27" methods="15" coveredmethods="15" elements="291" coveredelements="287" complexity="0" loc="248" ncloc="248" packages="12" files="12" classes="12"/>
+<coverage generated="1681103824168" clover="3.2.0">
+  <project timestamp="1681103824168" name="All files">
+    <metrics statements="259" coveredstatements="256" conditionals="30" coveredconditionals="29" methods="17" coveredmethods="17" elements="306" coveredelements="302" complexity="0" loc="259" ncloc="259" packages="13" files="13" classes="13"/>
     <package name="components">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.ts" path="/Users/juanisaza/code/videogame-discovery/src/components/index.ts">
@@ -282,11 +282,12 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="2" coveredstatements="2" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <metrics statements="3" coveredstatements="3" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="index.ts" path="/Users/juanisaza/code/videogame-discovery/src/services/index.ts">
-        <metrics statements="2" coveredstatements="2" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <metrics statements="3" coveredstatements="3" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
       </file>
     </package>
     <package name="services.api">
@@ -320,6 +321,22 @@
         <line num="11" count="3" type="stmt"/>
         <line num="12" count="3" type="stmt"/>
         <line num="13" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="services.utils">
+      <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="imageUrl.ts" path="/Users/juanisaza/code/videogame-discovery/src/services/utils/imageUrl.ts">
+        <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="3" type="cond" truecount="1" falsecount="0"/>
       </file>
     </package>
   </project>
