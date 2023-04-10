@@ -1,4 +1,5 @@
 import { Card, CardBody, Heading, Image } from '@chakra-ui/react'
+import { PlatformIconList } from '@components/index'
 import { Game } from '@services/index'
 
 interface Props {
@@ -14,11 +15,17 @@ export const GameCard = ({ game }: Props) => {
       margin={2}
       maxW='sm'
       overflow='hidden'
-      _hover={{ boxShadow: 'xl', cursor: 'pointer' }}
+      _hover={{
+        boxShadow: 'xl',
+        transition: 'all 0.3s ease-in-out',
+      }}
     >
       <Image src={game.background_image} />
       <CardBody>
-        <Heading>{game.name}</Heading>
+        <Heading size='lg'>{game.name}</Heading>
+        <PlatformIconList
+          platforms={game.parent_platforms.map((p) => p.platform)}
+        />
       </CardBody>
     </Card>
   )

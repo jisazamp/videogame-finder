@@ -8,11 +8,11 @@ export const GamesGrid = () => {
   if (isLoading) {
     return (
       <Container
+        alignItems='flex-start'
         data-testid='loading-container'
         display='flex'
-        alignItems='flex-start'
-        justifyContent='center'
         height='100vh'
+        justifyContent='center'
       >
         <Text>Loading...</Text>
       </Container>
@@ -22,10 +22,10 @@ export const GamesGrid = () => {
   if (isError) {
     return (
       <Container
-        display='flex'
         alignItems='flex-start'
-        justifyContent='center'
+        display='flex'
         height='100vh'
+        justifyContent='center'
       >
         <Text>{error?.message}</Text>
       </Container>
@@ -34,7 +34,12 @@ export const GamesGrid = () => {
 
   return (
     <>
-      <SimpleGrid data-testid='games-list'>
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 2, xl: 3 }}
+        spacing={10}
+        data-testid='games-list'
+        justifyItems='center'
+      >
         {games?.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}

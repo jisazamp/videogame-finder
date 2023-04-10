@@ -29,12 +29,24 @@ describe('<GamesGrid />', () => {
   })
 
   test('should show a list of games', async () => {
-    ;(useGames as Mock).mockReturnValueOnce({
+    ;(useGames as Mock).mockReturnValue({
       games: [
-        { id: 1, name: 'Game 1' },
-        { id: 2, name: 'Game 2' },
+        {
+          id: 1,
+          name: 'Game 1',
+          background_image: 'image1',
+          parent_platforms: [{ platform: { id: 1, name: 'PC', slug: 'pc' } }],
+        },
+        {
+          id: 2,
+          name: 'Game 2',
+          background_image: 'image2',
+          parent_platforms: [{ platform: { id: 1, name: 'PC', slug: 'pc' } }],
+        },
       ],
       error: null,
+      isLoading: false,
+      isError: false,
     })
 
     await act(async () => {
