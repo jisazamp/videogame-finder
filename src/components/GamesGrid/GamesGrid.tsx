@@ -7,7 +7,7 @@ import {
   SkeletonText,
   Text,
 } from '@chakra-ui/react'
-import { GameCard } from '@components/index'
+import { CardContainer, GameCard } from '@components/index'
 import { useGames } from '@hooks/index'
 
 export const GamesGrid = () => {
@@ -23,19 +23,12 @@ export const GamesGrid = () => {
         margin={2}
       >
         {skeletons.map((skeleton) => (
-          <Card
-            borderRadius='lg'
-            data-testid='skeleton-card'
-            height='100%'
-            key={skeleton}
-            margin={2}
-            width='300px'
-          >
+          <CardContainer key={skeleton} testId='skeleton-card'>
             <Skeleton height='200px' />
             <CardBody>
               <SkeletonText />
             </CardBody>
-          </Card>
+          </CardContainer>
         ))}
       </SimpleGrid>
     )

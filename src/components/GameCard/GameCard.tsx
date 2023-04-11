@@ -1,5 +1,5 @@
 import { Card, CardBody, HStack, Heading, Image, Text } from '@chakra-ui/react'
-import { PlatformIconList, CriticScore } from '@components/index'
+import { CardContainer, PlatformIconList, CriticScore } from '@components/index'
 import { Game, getCroppedImageUrl } from '@services/index'
 
 interface Props {
@@ -8,19 +8,7 @@ interface Props {
 
 export const GameCard = ({ game }: Props) => {
   return (
-    <Card
-      borderRadius='lg'
-      boxShadow='lg'
-      data-testid='game-card'
-      margin={2}
-      maxW='sm'
-      overflow='hidden'
-      width='300px'
-      _hover={{
-        boxShadow: 'xl',
-        transition: 'all 0.3s ease-in-out',
-      }}
-    >
+    <CardContainer testId='game-card'>
       <Image alt={game.name} src={getCroppedImageUrl(game.background_image)} />
       <CardBody>
         <Heading size='lg'>{game.name}</Heading>
@@ -31,6 +19,6 @@ export const GameCard = ({ game }: Props) => {
           <CriticScore score={game.metacritic} />
         </HStack>
       </CardBody>
-    </Card>
+    </CardContainer>
   )
 }
