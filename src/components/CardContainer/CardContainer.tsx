@@ -13,7 +13,7 @@ export const CardContainer = ({ children, testId = 'container' }: Props) => {
       height='100%'
       margin={2}
       overflow='hidden'
-      width='310px'
+      width='100%'
       _hover={{
         boxShadow: 'xl',
         transition: 'all 0.3s ease-in-out',

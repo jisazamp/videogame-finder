@@ -1,5 +1,4 @@
 import {
-  Card,
   CardBody,
   Container,
   SimpleGrid,
@@ -11,7 +10,8 @@ import { CardContainer, GameCard } from '@components/index'
 import { useGames } from '@hooks/index'
 
 export const GamesGrid = () => {
-  const { games, error, isError, isLoading } = useGames()
+  const { data: games, error, isError, isLoading } = useGames()
+
   const skeletons = [1, 2, 3, 4, 5, 6]
 
   if (isLoading) {
@@ -51,7 +51,9 @@ export const GamesGrid = () => {
     <>
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 2, xl: 3 }}
-        spacing={10}
+        spacing={3}
+        paddingX={2}
+        marginBottom={8}
         data-testid='games-list'
         justifyItems='center'
       >

@@ -1,7 +1,6 @@
 import { describe, test, expect, vi, Mock } from 'vitest'
 import { render, screen, act } from '@testing-library/react'
 import { useGames } from '@hooks/index'
-import { Skeleton, SkeletonText } from '@chakra-ui/react'
 import { GamesGrid } from '../GamesGrid'
 
 vi.mock('@hooks/index', async () => {
@@ -24,7 +23,7 @@ vi.mock('@chakra-ui/react', async () => {
 describe('<GamesGrid />', () => {
   test('should show a message when there is an error', async () => {
     ;(useGames as Mock).mockReturnValue({
-      games: [],
+      data: [],
       error: { message: 'Error' },
       isError: true,
       isLoading: false,
@@ -40,7 +39,7 @@ describe('<GamesGrid />', () => {
 
   test('should show a list of games', async () => {
     ;(useGames as Mock).mockReturnValue({
-      games: [
+      data: [
         {
           id: 1,
           name: 'Game 1',
@@ -73,7 +72,7 @@ describe('<GamesGrid />', () => {
       isLoading: true,
       isError: false,
       error: null,
-      games: [],
+      data: [],
     })
 
     await act(async () => {

@@ -1,22 +1,6 @@
-import { apiClient, Game } from '@services/index'
-import { useQuery } from 'react-query'
+import { useData } from '..'
+import type { Game } from '@services/index'
 
-interface FetchGamesResponse {
-  count: number
-  results: Game[]
-}
+const API_KEY = 'games'
 
-export const useGames = () => {
-  const {
-    data: games,
-    error,
-    isError,
-    isLoading,
-  } = useQuery<Game[], Error>('games', async () => {
-    return apiClient
-      .get<FetchGamesResponse>('/games')
-      .then((response) => response.data.results)
-  })
-
-  return { games, error, isLoading, isError }
-}
+export const useGames = () => useData<Game>('/' + API_KEY, API_KEY)
