@@ -8,13 +8,18 @@ import {
 } from '@chakra-ui/react'
 import { CardContainer, GameCard } from '@components/index'
 import { useGames } from '@hooks/index'
+import type { Genre } from '@services/index'
 
-export const GamesGrid = () => {
-  const { data: games, error, isError, isLoading } = useGames()
+interface Props {
+  selectedGenre: Genre | null
+}
 
-  const skeletons = [1, 2, 3, 4, 5, 6]
+export const GamesGrid = ({ selectedGenre }: Props) => {
+  const { data: games, error, isError, isLoading } = useGames(selectedGenre)
 
   if (isLoading) {
+    const skeletons = [1, 2, 3, 4, 5, 6]
+
     return (
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 2, xl: 3 }}

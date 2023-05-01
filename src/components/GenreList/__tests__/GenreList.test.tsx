@@ -13,6 +13,7 @@ vi.mock('@hooks/index', async () => {
 })
 
 const queryClient = new QueryClient()
+const onSelectedGenre = vi.fn()
 
 describe('Tests on <GenreList />', () => {
   test('should render the list of genres fetches', async () => {
@@ -29,13 +30,13 @@ describe('Tests on <GenreList />', () => {
     await act(async () => {
       render(
         <QueryClientProvider client={queryClient}>
-          <GenreList />
+          <GenreList onGenreSelect={onSelectedGenre} />
         </QueryClientProvider>
       )
     })
 
     const genresList = screen.getAllByTestId('genre-list-item')
-    expect(genresList.length).toBe(2)
+    expect(genresList.length).toBe(3)
   })
 
   test('should render a spinner when loading genres', async () => {
@@ -46,7 +47,7 @@ describe('Tests on <GenreList />', () => {
     await act(async () => {
       render(
         <QueryClientProvider client={queryClient}>
-          <GenreList />
+          <GenreList onGenreSelect={onSelectedGenre} />
         </QueryClientProvider>
       )
     })

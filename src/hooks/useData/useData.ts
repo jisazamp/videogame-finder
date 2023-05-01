@@ -1,4 +1,5 @@
 import { apiClient } from '@services/index'
+import { AxiosRequestConfig } from 'axios'
 import { useQuery } from 'react-query'
 
 interface FetchResponse<T> {
@@ -6,12 +7,16 @@ interface FetchResponse<T> {
   results: T[]
 }
 
-export const useData = <T>(endpoint: string, queryKey: string) => {
+export const useData = <T>(
+  endpoint: string,
+  queryKey: string,
+  requestConfig?: AxiosRequestConfig
+) => {
   const { data, error, isError, isLoading } = useQuery<T[], Error>(
-    queryKey,
+    [queryKey, requestConfig],
     async () => {
       return apiClient
-        .get<FetchResponse<T>>(endpoint)
+        .get<FetchResponse<T>>(endpoint, { ...requestConfig })
         .then((response) => response.data.results)
     }
   )

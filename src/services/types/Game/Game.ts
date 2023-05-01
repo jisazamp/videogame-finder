@@ -1,3 +1,5 @@
+import type { Genre } from '../Genre/Genre'
+
 export interface Platform {
   id: number
   name: string
@@ -6,6 +8,7 @@ export interface Platform {
 
 export interface Game {
   background_image: string
+  genres: Genre[]
   id: number
   metacritic: number
   name: string
